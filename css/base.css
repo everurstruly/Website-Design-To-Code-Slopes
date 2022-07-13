@@ -15,8 +15,8 @@
 	--pry-hue: 245;
 	--sec-hue: 56;
 
-	--pry-300-hsl: var(--pry-hue), 100%, 60%;
-	--pry-400-hsl: var(--pry-hue), 100%, 40%;
+	--pry-300-hsl: var(--pry-hue), 100%, 50%;
+	--pry-400-hsl: var(--pry-hue), 100%, 39%;
 	--pry-450-hsl: var(--pry-hue), 100%, 45%;
 	--sec-400-hsl: var(--sec-hue), 84%, 55%;
 }
