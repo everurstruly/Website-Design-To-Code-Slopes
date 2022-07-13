@@ -201,6 +201,12 @@ body::-webkit-scrollbar-thumb {
 	}
 }
 
+@media screen and (min-width: 64rem) {
+	.section__headline .word-group {
+		display: block;
+	}
+}
+
 @media screen and (min-width: 83rem) {
 	.section__headline {
 		font-size: 3.6rem;
