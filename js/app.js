@@ -5,14 +5,20 @@ let NAVBAR_TOGGLER;
 let TOGGLE_TOGGLERS;
 let OFF_TOGGLERS;
 
+// DATASET ATTRIBUTE CONSTANTS
 const TOGGLE_ON_ATTR = 'data-toggle-on';
 const E_BACKGROUND_DISPLAYING_ATTR = 'data-e-background-displaying';
 
 // HELPER FUNCTIONS
 function elTogglerOn(el) {
-	if (el.dataset.toggleOn === 'true') 
+	if (el.getAttribute(TOGGLE_ON_ATTR) === 'true') 
 		return true;
 	return false;
+}
+
+function getTargetSelectorEl(textIdentifier) {
+	return document.querySelector(
+		`${textIdentifier[0]==='#' ? textIdentifier : '.'+textIdentifier}`);
 }
 
 // GET STATE (elements) FUNCITONS
@@ -37,6 +43,7 @@ function setCarouselSLidePosition(carouselEl, toSlideItemValue, allowTransition)
 	const slideByHeight = SLIDE_ITEMS[0].clientHeight;
 
 	let willTransition = allowTransition;
+	const defaultTransitionDuration = '620ms';
 
 	if (toSlideItemValue > slideByItemMaxValue) {
 		slideByItemIndex = slideByItemMinValue;
@@ -46,7 +53,7 @@ function setCarouselSLidePosition(carouselEl, toSlideItemValue, allowTransition)
 		slideByItemIndex = toSlideItemValue-1;
 	}
 
-	const translateDuration = (willTransition === false) ? '0ms' : '620ms';
+	const translateDuration = (willTransition === false) ? '0ms' : defaultTransitionDuration;
 	const translateValue = (orientation === 'y') 
 		? `${(-1 * slideByHeight * slideByItemIndex)}px`
 		: `${(-1 * slideByWidth * slideByItemIndex)}px`;
@@ -58,52 +65,46 @@ function setCarouselSLidePosition(carouselEl, toSlideItemValue, allowTransition)
 
 // UPDATE STATE (elements) FUNCTIONS
 function updateEBackgroundDisplayingId() {
-	let id = 2;
-	id = (!elTogglerOn(NAVBAR_TOGGLER)) ? 1 : 2;
-	HTML_BODY.setAttribute(E_BACKGROUND_DISPLAYING_ATTR, id);
+	let show_background_id = 2;
+	show_background_id = !elTogglerOn(NAVBAR_TOGGLER) ? 1 : 2;
+	HTML_BODY.setAttribute(E_BACKGROUND_DISPLAYING_ATTR, show_background_id);
 }
 
 // HANDLE EVENT FUNCTIONS
 const handleToggleToggler = (e) => {
 	const EL = e.currentTarget;
-
-	if (elTogglerOn(EL)) {
-		setTogglerOnState(EL, false);
-	} else {
-		setTogglerOnState(EL, true);
-	}
+	const STATE = elTogglerOn(EL) ? false : true;
+	setTogglerOnState(EL, STATE);
 }
 
 const handleCarouselControl = (e) => {
 	const EL = e.currentTarget;
-	let directionValue = 0;
+	const CAROUSEL = EL.closest('.carousel');
+	const { currentSlideItem } = CAROUSEL.dataset;
 
+	let directionValue = 0;
 	if (EL.dataset.controlsPrev) directionValue = -1;
 	if (EL.dataset.controlsNext) directionValue = +1;
 
-	const CAROUSEL = EL.closest('.carousel');
-	const { currentSlideItem } = CAROUSEL.dataset;
 	const toSlideItem = Number(currentSlideItem) + directionValue;
-
 	setCarouselSLidePosition(CAROUSEL, toSlideItem);
 }
 
 const handleHtmlBodyClicked = (e) => {
 	const EL = e.target;
-	console.log(EL)
-	let clickedLink = (EL.closest('a')) ? true : false;
+	const clickedOnLink = EL.closest('a') ? true : false;
 
-	if (clickedLink && elTogglerOn(NAVBAR_TOGGLER)) {
+	if (clickedOnLink && elTogglerOn(NAVBAR_TOGGLER)) {
 		setTogglerOnState(NAVBAR_TOGGLER, false);
 	}
+
 	updateEBackgroundDisplayingId();
 }
 
 const handleOffToggler = (e) => {
-	console.log('clicking on toggle of button')
 	const EL = e.currentTarget;
 	const TARGET_SELECTOR = EL.dataset.targetSelector;
-	const TOGGLER = document.querySelector(`.${TARGET_SELECTOR}`);
+	const TOGGLER = getTargetSelectorEl(TARGET_SELECTOR);
 	setTogglerOnState(TOGGLER, false);
 }
 
