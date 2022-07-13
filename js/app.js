@@ -16,9 +16,9 @@ function elTogglerOn(el) {
 	return false;
 }
 
-function getTargetSelectorEl(textIdentifier) {
+function getTargetSelectorEl(selector) {
 	return document.querySelector(
-		`${textIdentifier[0]==='#' ? textIdentifier : '.'+textIdentifier}`);
+		`${selector[0]==='#' ? selector : '.'+selector}`);
 }
 
 // GET STATE (elements) FUNCITONS
