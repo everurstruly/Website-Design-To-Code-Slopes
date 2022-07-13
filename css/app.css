@@ -408,6 +408,15 @@
 	.navbar__menu-link {
 		font-size: 1.125rem;
 	}
+
+	.navbar__toggler_fixed {
+		position: static;
+		z-index: initial;
+	}
+
+	.navbar-pro__toggler {
+		display: none;
+	}
 }
 
 @media screen and (min-width: 83rem) {
