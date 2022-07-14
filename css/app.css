@@ -250,7 +250,7 @@
 .navbar__toggler-close,
 .navbar-pro__toggler-close {
 	position: relative;
-	transform: scale(.25) rotate(-185deg);
+	transform: scale(0) rotate(-185deg);
 }
 
 [data-e-background-displaying="2"]
