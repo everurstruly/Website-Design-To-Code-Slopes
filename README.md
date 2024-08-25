@@ -1,4 +1,4 @@
-<h1 align="center">Slopes website clone</h1>
+
 
 ![](/mockup/tubik_studio_slopes_animation.gif)
 
